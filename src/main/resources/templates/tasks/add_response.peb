@@ -1,0 +1,13 @@
+<!-- Normal update goes into #task-area -->
+<div>
+  {% include "tasks/list.peb" %}
+</div>
+
+<!-- Extra update goes into #addTaskMessage -->
+<div id="addTaskMessage" hx-swap-oob="true">
+  Task added successfully!
+</div>
+
+<script hx-swap-oob="true">
+  document.getElementById('addTask').style.display = 'block';
+</script>

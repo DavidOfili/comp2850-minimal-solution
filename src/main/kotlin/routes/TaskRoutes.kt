@@ -125,8 +125,12 @@ private suspend fun ApplicationCall.handleCreateTaskSuccess(
 
     if (isHtmxRequest()) {
         val paginated = paginateTasks(store, query, 1)
+        // val statusHtml =
+        //     messageStatusFragment(
+        //         """Task "${task.title}" added successfully.""",
+        //     )
         val statusHtml =
-            messageStatusFragment(
+            successMessageFragment(
                 """Task "${task.title}" added successfully.""",
             )
         respondTaskArea(paginated, statusHtml, htmxTrigger = "task-added")
@@ -284,6 +288,12 @@ private fun filterStatusFragment(
         val noun = if (total == 1) "task" else "tasks"
         """<div id="status" hx-swap-oob="true" role="status">Found $total $noun matching "$query".</div>"""
     }
+
+// New Helper Function to Display/Comfirm Added Task
+private fun successMessageFragment(message: String): String {
+    return """<div id="addTaskMessage" hx-swap-oob="true" role="status" aria-live="polite">$message</div>
+             <script hx-swap-oob="true">document.getElementById('addTask').style.display = 'block';</script>"""
+}
 
 private fun messageStatusFragment(
     message: String,
